@@ -64,7 +64,31 @@ def Cpu():
 
 
 def services():
-    services = []
+    try:
+
+        services = []
+        #commands for services
+        com = ['systemctl', 'list-units', '--type=services', '--state=running']
+
+        run = subprocess.run(com, capture_output=True, text=True, check=True)
+
+        lines = run.stdout.strip().split('\n')
+
+        if len(lines) > 3:
+            for line in lines[1:-3]:
+                parts = line.strip().split(maxsplit=4)
+                if len(parts) >= 4:
+                    services.append({'name': parts[0], 'status': parts[3], 'description': parts[4] if len(parts) > 4 else ''})
+
+        return services
+
+
+
+    except FileNotFoundError:
+        print(f'couldnt get services')
+        return []
+
+    
 
 
 
