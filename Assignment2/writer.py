@@ -65,7 +65,6 @@ def Cpu():
 
 def Services():
     try:
-
         services = []
         #commands for services
         com = ['systemctl', 'list-units', '--type=service', '--state=running']
