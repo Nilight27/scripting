@@ -15,19 +15,18 @@ def PrintCompName(name):
 
     
 def PrintUsersAndGroups(users_and_groups):
-        print('Users and Groups:')
-        for user in users_and_groups:
-            print(f'  - {user}')
+        for user, groups in users_and_groups.items():
+            print(f'  {user}:')
+            for group in groups:
+                print(f'      - Group: {group}')
 
 def PrintCpuInfo(cpu_info):
-        print('CPU Information:')
         for key, value in cpu_info.items():
             print(f'  {key}: {value}')
 
 def PrintServices(services):
-        print('Running Services:')
         for service in services:
-            print(f"  - Name: {service['name']}, Status: {service['status']}, Description: {service['description']}")
+            print(f" \n - Name: {service['name']}, Status: {service['status']}, Description: {service['description']}")
 
 def header(title):
         print('\n' + '=' * 30)

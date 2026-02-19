@@ -24,7 +24,7 @@ def UserGroup():
         primary_group_name = grp.getgrgid(primary_gid).gr_name
 
         try:
-            # os.getgrouplist returns a list of GIDs
+            #returns a list of GIDs
             gids = os.getgrouplist(username, primary_gid)
             for gid in gids:
                 try:
