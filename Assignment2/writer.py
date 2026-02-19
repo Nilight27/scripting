@@ -4,6 +4,7 @@ import pwd
 import grp
 import socket  
 import os
+import subprocess
 
 def MName():
     try:
@@ -15,7 +16,7 @@ def MName():
 def UserGroup():
     UserAndGroup = {}
     group = []
-    
+
     for user_entry in pwd.getpwall():
         username = user_entry.pw_name
         # Get primary group name
@@ -39,4 +40,32 @@ def UserGroup():
             UserAndGroup[username] = [primary_group_name + " (and potentially other unlisted groups due to permission issues)"]
 
     return UserAndGroup
+
+
+def Cpu():
+    keys_to_find = ['vendor_id', 'model', 'model name', 'cache size']
+    cpu_details = {}
+    try:
+        with open('/proc/cpuinfo', 'r') as f:
+            for line in f:
+                for key in keys_to_find:
+                    if line.strip().startswith(key):
+                        value = line.split(':')[1].strip()
+                        cpu_details[key] = value
+                #reading the first processor entry
+                if 'cache size' in cpu_details and len(cpu_details) >= 4:
+                    break
+        return cpu_details
+    except FileNotFoundError as x:
+        print(f'Cant get file: {x}')
+
+
+
+
+
+def services():
+    services = []
+
+
+
 
