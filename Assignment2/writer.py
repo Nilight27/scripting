@@ -68,7 +68,7 @@ def Services():
 
         services = []
         #commands for services
-        com = ['systemctl', 'list-units', '--type=services', '--state=running']
+        com = ['systemctl', 'list-units', '--type=service', '--state=running']
 
         run = subprocess.run(com, capture_output=True, text=True, check=True)
 
@@ -81,8 +81,6 @@ def Services():
                     services.append({'name': parts[0], 'status': parts[3], 'description': parts[4] if len(parts) > 4 else ''})
 
         return services
-
-
 
     except FileNotFoundError:
         print(f'couldnt get services')
@@ -98,7 +96,7 @@ def main():
         'services': Services()
     }
     try:
-        with open('SystemInfo.json', 'w') as f:
+        with open('Project_2.json', 'w') as f:
             json.dump(data, f, indent=4)
     except IOError as e:
         print(f'Error writing to file: {e}')
