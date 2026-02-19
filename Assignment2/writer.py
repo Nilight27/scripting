@@ -63,7 +63,7 @@ def Cpu():
 
 
 
-def services():
+def Services():
     try:
 
         services = []
@@ -87,6 +87,27 @@ def services():
     except FileNotFoundError:
         print(f'couldnt get services')
         return []
+    
+
+
+def main():
+    data = {
+        'computer_name': MName(),
+        'users_and_groups': UserGroup(),
+        'cpu_info': Cpu(),
+        'services': Services()
+    }
+    try:
+        with open('SystemInfo.json', 'w') as f:
+            json.dump(data, f, indent=4)
+    except IOError as e:
+        print(f'Error writing to file: {e}')
+
+
+
+
+if __name__ == "__main__":
+    main()
 
     
 
